@@ -556,39 +556,24 @@ def drop_null_values():
 
 def replace_with_mean():
     global df
-    df_before = df.copy()
-    # Convert all columns to numeric type
-    df = df.apply(pd.to_numeric, errors='coerce',downcast='integer')
+    messagebox.showinfo("Success", "Null values have been replaced with max successfully.")
     df.fillna(df.mean(), inplace=True)
-    # Check if NaN values have been changed
-    if not df.equals(df_before):  # Check if there are any differences between the DataFrames
-        messagebox.showinfo("Success", "Null values have been replaced with max successfully.")
         
 def replace_with_max():
     global df
-    df_before = df.copy()
-    # Convert all columns to numeric type
-    df = df.apply(pd.to_numeric, errors='coerce',downcast='integer')
+    messagebox.showinfo("Success", "Null values have been replaced with max successfully.")
     df.fillna(df.max(), inplace=True)
-    if not df.equals(df_before): 
-        messagebox.showinfo("Success", "Null values have been replaced with max successfully.")
     
 def replace_with_kmeans():
     global df
-    df = df.apply(pd.to_numeric, errors='coerce',downcast='integer')
-    original_df = df.copy() 
     imputer = KNNImputer(n_neighbors=2)  
+    messagebox.showinfo("Success", "Null values have been replaced with the methode KNN successfully.")
     df = imputer.fit_transform(df)
-    if not np.array_equal(original_df, df): 
-        messagebox.showinfo("Success", "Null values have been replaced with the methode KNN successfully.")
 
 def replace_with_LOC():
     global df
-    df = df.apply(pd.to_numeric, errors='coerce',downcast='integer')
-    original_df = df.copy() 
+    messagebox.showinfo("Success", "Null values have been replaced with the Last Observation Carried Forward successfully.")
     df = df.ffill()
-    if not np.array_equal(original_df, df):
-        messagebox.showinfo("Success", "Null values have been replaced with the Last Observation Carried Forward successfully.")
 
 def show_replace_options():
     global frame_clean
