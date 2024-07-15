@@ -6,8 +6,8 @@ The Data Visualization App is your go-to tool for effortlessly exploring, unders
 
   ## Contributors:
 
-El Hadifi Soukaina @eosoukaina
-El Guelta Mohamed-Saber @saber-elg
+- El Hadifi Soukaina @eosoukaina
+- El Guelta Mohamed-Saber @saber-elg
 
   ## Key Features:
 
