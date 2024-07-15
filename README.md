@@ -1,15 +1,15 @@
-Data Visualization App
+# Data Visualization App
 
 Unleash the Power of Your Data
 
 The Data Visualization App is your go-to tool for effortlessly exploring, understanding, and communicating complex datasets. Designed with both data novices and experts in mind, it empowers you to extract meaningful insights and make data-driven decisions with ease.
 
-Contributors:
+  ## Contributors:
 
 El Hadifi Soukaina @eosoukaina
 El Guelta Mohamed-Saber @saber-elg
 
-Key Features:
+  ## Key Features:
 
 Intuitive Data Loading: Import data from various formats (CSV, XLSX, XLS) without hassle.
 Comprehensive Data Exploration: Delve deep into your data with descriptive statistics, summary information, and data type analysis.
@@ -17,23 +17,23 @@ Robust Data Cleaning: Prepare your data for analysis by handling missing values,
 In-Depth Data Exploration: Uncover hidden patterns and trends through advanced exploration techniques.
 Stunning Data Visualization: Create captivating charts, graphs, and plots to effectively communicate your findings.
 
-Benefits:
+  ## Benefits:
 
 Save Time: Streamline your data analysis workflow with efficient tools and automation.
 Gain Insights: Discover valuable patterns and correlations hidden within your data.
 Make Informed Decisions: Base your decisions on solid data-driven evidence.
 Enhance Communication: Clearly convey complex information through visually appealing visualizations.
 
-Who Can Benefit:
+  ## Who Can Benefit:
 
-Data Analysts
-Scientists
-Researchers
-Business Professionals
-Students
-Anyone interested in data-driven insights
+ - Data Analysts
+ - Scientists
+ - Researchers
+ - Business Professionals
+ - Students
+ - Anyone interested in data-driven insights
 
-Get Started :
+  ## Get Started :
 
 Clone the repository and launch the app.py code
 
