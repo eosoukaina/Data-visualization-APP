@@ -399,7 +399,6 @@ class Visualization:
     
 
 # ======================== DATA LOADING PAGE ========================#
-
 def load():
     loading_text = "Loading..."
     widget_load.delete('1.0', tk.END)
@@ -432,14 +431,13 @@ def load_data():
             rows_cols_text = f"Rows: {df.shape[0]}, Columns: {df.shape[1]}"
             rows_cols_label.config(text=rows_cols_text)
 def format_columns(data):
-    max_width = 20  # Largeur maximale pour chaque colonne
+    max_width = 20  
     formatted_data = ""
     for item in data:
-        formatted_data += str(item).ljust(max_width)[:max_width]  # Utilisation de ljust pour aligner les colonnes
+        formatted_data += str(item).ljust(max_width)[:max_width]
     return formatted_data
 
 # ========================== DATA DESCRIPTION PAGE  =====================
-
 def describe():
     for widget in fen.winfo_children():
         widget.grid_remove()
@@ -465,7 +463,7 @@ def create_text_frame(parent_frame, title, text_content, row, column,rowspan,hei
     widget_load.insert('1.0', text_content)
     widget_load.config(state="disabled")
 
-# ........................ scrollbars for frames....................
+    # ................... scrollbars for frames....................
     
     y_scrollbar = ttk.Scrollbar(frame, orient="vertical", command=widget_load.yview)
     widget_load.config(yscrollcommand=y_scrollbar.set)
@@ -491,23 +489,20 @@ def create_three_text_frames(parent_frame, df):
 
 
 # =================== CLEANING DATA PAGE ============================
-
-
 def clear_frame_clean():
     global frame_clean
-    # Remove all children (widgets) from frame_clean
     for widget in frame_clean.winfo_children():
         widget.destroy()
 
 def create_checkboxes():
     global checkbox_frame
     global column_vars
-    clear_frame_clean()  # Clear frame_clean
-    frame_clean.grid_rowconfigure(0, weight=1)  # Make the row expandable
+    clear_frame_clean() 
+    frame_clean.grid_rowconfigure(0, weight=1)  
     frame_clean.grid_columnconfigure(0, weight=1) 
     checkbox_frame = tk.Frame(frame_clean)
     checkbox_frame.grid(row=0, column=0, padx=20, pady=10, sticky="nsew")
-    # Création des checkboxes
+    # Checkboxes Creation
     for i, col_name in enumerate(df.columns):
         checkbox = tk.Checkbutton(checkbox_frame, text=col_name, variable=column_vars[i], activeforeground="#6190E8",)
         checkbox.grid(row=i+1, column=0,sticky="w",padx=200)  # Ajustement de l'index de ligne si nécessaire
@@ -533,29 +528,31 @@ def drop_duplicates():
     global df
     df.drop_duplicates(inplace=True)
     messagebox.showinfo("Success", "Duplicated rows have been dropped successfully.")
+
 def drop_rows():
     global frame_clean
-    clear_frame_clean()  # Clear frame_clean
+    clear_frame_clean() 
     # Create message label
     message_label = tk.Label(frame_clean, text="Are you sure you want to drop duplicated rows?", font=("Arial", 24, "bold"), fg="#5B61A1")
     message_label.grid(row=0, column=0, padx=20, pady=20, sticky="nsew")
     validate_button = tk.Button(frame_clean, text="Validate",width=10 , height=3 ,command=drop_duplicates)
     validate_button.grid(row=1, column=0, padx=20, pady=20)
+
 def manage_nulls():
     global frame_clean
     # Create buttons on frame_clean
     button4 = tk.Button(frame_clean, text="Drop", width=15, height=1,command=drop_null_values)
     button5 = tk.Button(frame_clean, text="Replace", width=15, height=1,command=show_replace_options())
-    # Place buttons on frame_clean
     button4.grid(row=0, column=0, padx=10, pady=10, sticky="nsew")
     button5.grid(row=1, column=0, padx=10, pady=10, sticky="nsew")
 
-# ................. null values Management ........................
+# ................ null values Management ........................
 
 def drop_null_values():
     global df
     df.dropna(inplace=True)
     messagebox.showinfo("Success", "Null values have been dropped successfully.")
+
 def replace_with_mean():
     global df
     df_before = df.copy()
@@ -565,44 +562,37 @@ def replace_with_mean():
     # Check if NaN values have been changed
     if not df.equals(df_before):  # Check if there are any differences between the DataFrames
         messagebox.showinfo("Success", "Null values have been replaced with max successfully.")
+        
 def replace_with_max():
     global df
     df_before = df.copy()
     # Convert all columns to numeric type
     df = df.apply(pd.to_numeric, errors='coerce',downcast='integer')
-    # Replace null values with the maximum value along each column
     df.fillna(df.max(), inplace=True)
-    # Check if NaN values have been changed
-    if not df.equals(df_before):  # Check if there are any differences between the DataFrames
+    if not df.equals(df_before): 
         messagebox.showinfo("Success", "Null values have been replaced with max successfully.")
     
 def replace_with_kmeans():
     global df
-    # Convert all columns to numeric type
     df = df.apply(pd.to_numeric, errors='coerce',downcast='integer')
-    original_df = df.copy()  # Copie de sauvegarde des données d'origine
-    # Imputation des valeurs manquantes par la méthode des k plus proches voisins (KNN)
-    imputer = KNNImputer(n_neighbors=2)  # Spécifiez le nombre de voisins à considérer
+    original_df = df.copy() 
+    imputer = KNNImputer(n_neighbors=2)  
     df = imputer.fit_transform(df)
-    # Vérifier si des valeurs ont été modifiées
     if not np.array_equal(original_df, df): 
         messagebox.showinfo("Success", "Null values have been replaced with the methode KNN successfully.")
 
 def replace_with_LOC():
     global df
-    # Convert all columns to numeric type
     df = df.apply(pd.to_numeric, errors='coerce',downcast='integer')
-    original_df = df.copy()  # Copie de sauvegarde des données d'origine
-    # Imputation des valeurs manquantes par LOC
+    original_df = df.copy() 
     df = df.ffill()
-    # Vérifier si des valeurs ont été modifiées
     if not np.array_equal(original_df, df):
         messagebox.showinfo("Success", "Null values have been replaced with the Last Observation Carried Forward successfully.")
+
 def show_replace_options():
     global frame_clean
-    # Clear previous contents of frame_clean
     clear_frame_clean()
-    # Display message
+    
     message_label = tk.Label(frame_clean, text="Choose what to replace with:",font=("Arial", 20, "bold"),fg="#5B61A1")
     message_label.grid(row=0, column=0, padx=60, pady=30, sticky="ew")
     # Create buttons for replacementoptions
@@ -617,6 +607,7 @@ def show_replace_options():
         if i == 3:
             button = tk.Button(frame_clean, text=option_text, width=15, height=2, command=lambda: (replace_with_LOC()))
         button.grid(row=i+1, column=0, padx=70, pady=10,sticky="ew")
+        
 def main_clean():
     global frame_clean,column_vars,title_clean
     for widget in fen.winfo_children():
@@ -631,18 +622,17 @@ def main_clean():
     title_clean.grid(row=0, columnspan=3, pady=10,sticky="ew")
     df.infer_objects()
     column_vars = [tk.IntVar() for _ in df.columns] 
-    # Création des boutons et cadre
+
+    #buttons and frame creation
     button_frame = tk.Frame(fen, bg="white", bd=1, relief="solid")
     button1 = tk.Button(button_frame, text="Drop column", width=28, height=3, command=create_checkboxes)
     button2 = tk.Button(button_frame, text="Manage Null values", width=28, height=3, command=manage_nulls)
     button3 = tk.Button(button_frame, text="Manage duplicated rows", width=28, height=3, command=drop_rows)
     frame_clean = tk.Frame(fen,bg="white", bd=1, relief="solid",height=550, width=800)
     
-    # Placement des boutons et cadre
     button_frame.grid(row=2, column=0, padx=5, pady=10, columnspan=3)
-
-    button1.grid(row=2, column=0, padx=15, pady=5)  # Adjusted padx to add padding only on the right side
-    button2.grid(row=2, column=1, padx=15, pady=5)  # Placed in the same column but shifted to the right
+    button1.grid(row=2, column=0, padx=15, pady=5)  
+    button2.grid(row=2, column=1, padx=15, pady=5)  
     button3.grid(row=2, column=2, padx=15, pady=5)
     
     frame_clean.propagate(False)
@@ -655,13 +645,14 @@ def main_clean():
     button_clean.grid(row=0,column=3, padx=5, pady=5)
     button_explore.grid(row=0,column=4,padx=5,pady=5)
     exit_button.grid(row=0, column=5, padx=5, pady=5)
-# ========================= DATA EXPLORATION PAGE =====================
 
+
+# ========================= DATA EXPLORATION PAGE =====================
 def explore():
     global df
     global frame_clean, column_vars
     global title_explore
-    # Supprimer tous les widgets de la fenêtre Tkinter
+
     for widget in fen.winfo_children():
         if(isinstance(widget,tk.Toplevel)):
             widget.destroy
@@ -671,18 +662,16 @@ def explore():
     title_clean.destroy()
     title_explore = tk.Label(fen, text="DATA EXPLORATION", justify="center", font=("Helvetica", 16, "bold"), fg="#00B09B")
     title_explore.grid(row=0, columnspan=2, pady=10,sticky="ew")
-    # Convertir toutes les colonnes en valeurs numériques
+    
     df = pd.DataFrame(df)
     df_numeric = df.select_dtypes(include=[np.number])  # Select only numeric columns
 
-    # Calcul de la matrice de corrélation
     corr_matrix = df_numeric.corr()
 
-    # Création d'une Frame pour les graphiques
     frame_expl = ttk.Frame(fen)
     frame_expl.grid(row=1, column=0, padx=10, pady=10)
 
-    # Création des figures et axes pour le heatmap
+    # Creation of figures and axes for the heatmap
     fig_corr, ax_corr = plt.subplots(figsize=(4, 3))
     ax_corr.set_title("Heatmap", fontdict={'fontsize': 10, 'fontweight': 'bold'})
     sns.heatmap(corr_matrix, ax=ax_corr, annot=True, cmap="YlGnBu")
@@ -705,7 +694,6 @@ def explore():
     canvas_corr.create_image(0, 0, anchor=tk.NW, image=photo_corr)
     canvas_corr.grid(row=0, column=0, padx=10, pady=10)
 
-    # Keep a reference to the photo to prevent it from being garbage collected
     canvas_corr.photo = photo_corr
 
     # Display the pairplot image on the second canvas
@@ -725,6 +713,8 @@ def explore():
     button_explore.grid(row=0,column=4,padx=5,pady=5)
     button_analyse.grid(row=0,column=5, padx=5, pady=5)
     exit_button.grid(row=0, column=6, padx=5, pady=5)
+
+
    
 # ====================== DATA VISUALISATION PAGE ====================
 def dashboard():
@@ -768,22 +758,18 @@ def home():
 
     canvas = tk.Canvas(fen, width=window_width, height=window_height)
     canvas.grid(row=0, column=0)  
-    # Charger l'image de fond
     image = Image.open("bg.png")
     image = image.resize((2600,1435 )) 
     global background_photo  
     background_photo = ImageTk.PhotoImage(image)
 
-    # Afficher l'image de fond sur le canevas
     canvas.create_image(0, 0, anchor=tk.CENTER, image=background_photo)
     
-    # Créer les textes directement sur le canvas avec une couleur de remplissage blanche
     canvas.create_text(window_width/2, 240, text="Welcome to", font=("Georgia", 15), fill="white")
     canvas.create_text(window_width/2, 300, text="DATA VISUALIZATION APP", font=("Palatino Linotype", 30, "bold"), fill="white")
     canvas.create_text(window_width/2, 420, text="About :  It's an application which offers exploring, cleaning, and analyzing your data through multiple graphs.\n\n\\t\t\tDeveloped by  : Soukaina El Hadifi & Mohamed Saber El Guelta", font=("Helvetica", 12, "italic"), fill="white")
-    # Créer le bouton "START" sur le canevas
+    # Create the 'Start' button on canvas
     button_start = tk.Button(canvas, text="START", command=start, height=1, width=8, bg="pink", font=("Helvetica", 14, "bold"))
-    # Placer le bouton au centre du canevas
     canvas.create_window(window_width/2, 540, anchor=tk.CENTER, window=button_start)
     
 
@@ -793,24 +779,24 @@ def set_win():
     fen.title("Data Visualization APP")
     fen.attributes("-fullscreen", True) 
     fen.resizable(width=False, height=False)
-    # Adjusting the grid row and column configurations
-    fen.grid_rowconfigure(1, weight=1)  # Row 1 should expand or shrink vertically
-    fen.grid_columnconfigure(0, weight=1)  # Column 0 should expand or shrink horizontally
+  
+    fen.grid_rowconfigure(1, weight=1) 
+    fen.grid_columnconfigure(0, weight=1)  
     fen.configure(bg="#d2e3ee")
 
-#............ la fenetre principale ............
+#............ the main window ............
 set_win()
 fen.update()
 window_width = fen.winfo_width()
 window_height = fen.winfo_height()
 home()
-#...........definition des ruban ..........
+
 ruban_frame = tk.Frame(fen, bg="honeydew", height=100)
-#..........definition des scrollbars.......
+
 scrollbar_horiz = tk.Scrollbar(fen, orient="horizontal")
 scrollbar_vert = tk.Scrollbar(fen, orient="vertical")
 
-#...........definition des buttons.........
+#...........definition of  buttons.........
 button_load = tk.Button(fen, text="Load", command=load, width=30, height=3)
 widget_load = tk.Text(fen, height=35, width=window_width, wrap="none", xscrollcommand=scrollbar_horiz.set, yscrollcommand=scrollbar_vert.set)
 button_start=tk.Button(ruban_frame, text="Load",relief="raised", font=("Helvetica", 12, "bold"), command=start, width=14, height=1,bg="#96CCA8")
@@ -819,13 +805,11 @@ button_overview = tk.Button(ruban_frame, text="Overview",relief="raised", font=(
 button_clean = tk.Button(ruban_frame, text="Clean",relief="raised", font=("Arial", 12, "bold"),command=main_clean,width=14, height=1,bg="#C0E1D1")
 button_explore = tk.Button(ruban_frame, text="Explore",relief="raised", font=("Arial", 12, "bold"), command=explore, width=14, height=1,bg="#69A297")
 button_analyse = tk.Button(ruban_frame, text="Analyse", relief="raised",font=("Arial", 12, "bold"),command=dashboard, width=14, height=1,bg="#50808E")
-
+#.................
 rows_cols_label = tk.Label(fen, text="", width=20,bg="#d2e3ee")
-
-# Initialisation des frames
 frame_heatmap = ttk.Frame(fen)
 frame_correlation = ttk.Frame(fen)
-# Création d'une zone de texte pour la matrice de corrélation
+
 text_correlation = scrolledtext.ScrolledText(frame_correlation, width=40, height=20)
 
 
@@ -834,13 +818,12 @@ text_correlation = scrolledtext.ScrolledText(frame_correlation, width=40, height
 exit_image = Image.open("exit.png")
 used_exit = ImageTk.PhotoImage(exit_image)
 exit_button =tk.Button(ruban_frame, image=used_exit, bg="honeydew", bd=0, command=close_window)
-exit_button.image = used_exit  # Garde une référence à l'image pour éviter qu'elle ne soit supprimée
+exit_button.image = used_exit 
 
 home_image = Image.open("home.png")
 home_image = home_image.resize((40, 40))
 used_home = ImageTk.PhotoImage(home_image)
 home_button =tk.Button(ruban_frame, image=used_home, bg="honeydew", bd=0, command=home)
-home_button.image = used_home  # Garde une référence à l'image pour éviter qu'elle ne soit supprimée
-
+home_button.image = used_home 
 
 fen.mainloop()
