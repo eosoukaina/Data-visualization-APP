@@ -32,8 +32,8 @@ class Visualization:
         window.attributes("-fullscreen", True) 
         window.resizable(width=False, height=False)
         # Adjusting the grid row and column configurations
-        window.grid_rowconfigure(1, weight=1)  # Row 1 should expand or shrink vertically
-        window.grid_columnconfigure(0, weight=1)  # Column 0 should expand or shrink horizontally
+        window.grid_rowconfigure(1, weight=1) 
+        window.grid_columnconfigure(0, weight=1)  
         window.configure(bg="#d2e3ee")
 
         self.df = pd.DataFrame()
@@ -51,13 +51,13 @@ class Visualization:
         exit_image = Image.open("exit.png")
         used_exit = ImageTk.PhotoImage(exit_image)
         self.exit_button =tk.Button(self.ruban_frame, image=used_exit, bg="honeydew", bd=0, command=close_window)
-        exit_button.image = used_exit  # Garde une référence à l'image pour éviter qu'elle ne soit supprimée
+        exit_button.image = used_exit 
 
         home_image = Image.open("home.png")
         home_image = home_image.resize((40, 40))
         used_home = ImageTk.PhotoImage(home_image)
         self.home_button =tk.Button(self.ruban_frame, image=used_home, bg="honeydew", bd=0, command=home)
-        home_button.image = used_home  # Garde une référence à l'image pour éviter qu'elle ne soit supprimée
+        home_button.image = used_home 
         
         self.button_home_loading = tk.Button(self.ruban_frame, text="Load",relief="raised", font=("Helvetica", 12, "bold"), command=start, width=14, height=1,bg="#96CCA8")
         self.button_overview = tk.Button(self.ruban_frame, text="Overview",relief="raised", font=("Arial", 12, "bold"), command=describe, width=14, height=1,bg="#f9c68e")
