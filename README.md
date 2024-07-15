@@ -11,11 +11,11 @@ The Data Visualization App is your go-to tool for effortlessly exploring, unders
 
 ## Key Features:
 
-`Intuitive Data Loading`: Import data from various formats (CSV, XLSX, XLS) without hassle.
-`Comprehensive Data Exploration`: Delve deep into your data with descriptive statistics, summary information, and data type analysis.
-`Robust Data Cleaning`: Prepare your data for analysis by handling missing values, removing duplicates, and ensuring data consistency.
-`In-Depth Data Exploration`: Uncover hidden patterns and trends through advanced exploration techniques.
-`Stunning Data Visualization`: Create captivating charts, graphs, and plots to effectively communicate your findings.
+`Intuitive Data Loading`: Import data from various formats (CSV, XLSX, XLS) without hassle.<br>
+`Comprehensive Data Exploration`: Delve deep into your data with descriptive statistics, summary information, and data type analysis.<br>
+`Robust Data Cleaning`: Prepare your data for analysis by handling missing values, removing duplicates, and ensuring data consistency.<br>
+`In-Depth Data Exploration`: Uncover hidden patterns and trends through advanced exploration techniques.<br>
+`Stunning Data Visualization`: Create captivating charts, graphs, and plots to effectively communicate your findings.<br>
 
   ## Benefits:
 
