@@ -70,6 +70,7 @@ class Visualization:
         self.exit_button.pack(side="left", padx=10, pady=10)
         
         # ================================ TOP FRAME ================================ #
+
         self.top_frame = Frame(self.window)
         self.top_frame.place(x=2, y=0, width=1363, height=40)
 
@@ -325,7 +326,7 @@ class Visualization:
         self.line_box["values"] = tuple(x_labels)
         self.line_box.current(0)
 
-    # =================================== DRAW CHARTS ============================ #
+    # =================================== DRAW CHARTS ========================== #
     def draw_bar_chart(self):
         self.fig_1 = Figure(figsize=(4, 2), dpi=100)
         axes = self.fig_1.add_subplot(111)
@@ -398,7 +399,7 @@ class Visualization:
 
     
 
-# ======================== DATA LOADING PAGE ========================#
+# =============================== DATA LOADING PAGE =========================== #
 def load():
     loading_text = "Loading..."
     widget_load.delete('1.0', tk.END)
@@ -437,7 +438,7 @@ def format_columns(data):
         formatted_data += str(item).ljust(max_width)[:max_width]
     return formatted_data
 
-# ========================== DATA DESCRIPTION PAGE  =====================
+# =============================== DATA DESCRIPTION PAGE  ======================= #
 def describe():
     for widget in fen.winfo_children():
         widget.grid_remove()
@@ -463,7 +464,7 @@ def create_text_frame(parent_frame, title, text_content, row, column,rowspan,hei
     widget_load.insert('1.0', text_content)
     widget_load.config(state="disabled")
 
-    # ................... scrollbars for frames....................
+    # scrollbars for frames..................................................
     
     y_scrollbar = ttk.Scrollbar(frame, orient="vertical", command=widget_load.yview)
     widget_load.config(yscrollcommand=y_scrollbar.set)
@@ -488,7 +489,7 @@ def create_three_text_frames(parent_frame, df):
    
 
 
-# =================== CLEANING DATA PAGE ============================
+# ============================== CLEANING DATA PAGE ============================ #
 def clear_frame_clean():
     global frame_clean
     for widget in frame_clean.winfo_children():
@@ -546,7 +547,7 @@ def manage_nulls():
     button4.grid(row=0, column=0, padx=10, pady=10, sticky="nsew")
     button5.grid(row=1, column=0, padx=10, pady=10, sticky="nsew")
 
-# ................ null values Management ........................
+# null values Management ......................................................
 
 def drop_null_values():
     global df
@@ -647,7 +648,7 @@ def main_clean():
     exit_button.grid(row=0, column=5, padx=5, pady=5)
 
 
-# ========================= DATA EXPLORATION PAGE =====================
+# =============================== DATA EXPLORATION PAGE ====================== #
 def explore():
     global df
     global frame_clean, column_vars
@@ -716,12 +717,12 @@ def explore():
 
 
    
-# ====================== DATA VISUALISATION PAGE ====================
+# ============================= DATA VISUALISATION PAGE ==================== #
 def dashboard():
     top=tk.Toplevel()
     Visualization(top)
     
-#..................exit command....................
+# exit command ........................................................
 def close_window():
         confirm = messagebox.askyesno(title="Data Visualization APP", message="Do You Want To Close Program?")
         if confirm > 0:
@@ -729,7 +730,7 @@ def close_window():
             return
         else:
             pass
-#..............start command..............
+# start command ........................................................
 def start():
     global title_load
     for widget in fen.winfo_children():
@@ -784,7 +785,7 @@ def set_win():
     fen.grid_columnconfigure(0, weight=1)  
     fen.configure(bg="#d2e3ee")
 
-#............ the main window ............
+# the main window ..........................................................
 set_win()
 fen.update()
 window_width = fen.winfo_width()
@@ -795,8 +796,7 @@ ruban_frame = tk.Frame(fen, bg="honeydew", height=100)
 
 scrollbar_horiz = tk.Scrollbar(fen, orient="horizontal")
 scrollbar_vert = tk.Scrollbar(fen, orient="vertical")
-
-#...........definition of  buttons.........
+# definition of  buttons ...................................................
 button_load = tk.Button(fen, text="Load", command=load, width=30, height=3)
 widget_load = tk.Text(fen, height=35, width=window_width, wrap="none", xscrollcommand=scrollbar_horiz.set, yscrollcommand=scrollbar_vert.set)
 button_start=tk.Button(ruban_frame, text="Load",relief="raised", font=("Helvetica", 12, "bold"), command=start, width=14, height=1,bg="#96CCA8")
@@ -805,7 +805,7 @@ button_overview = tk.Button(ruban_frame, text="Overview",relief="raised", font=(
 button_clean = tk.Button(ruban_frame, text="Clean",relief="raised", font=("Arial", 12, "bold"),command=main_clean,width=14, height=1,bg="#C0E1D1")
 button_explore = tk.Button(ruban_frame, text="Explore",relief="raised", font=("Arial", 12, "bold"), command=explore, width=14, height=1,bg="#69A297")
 button_analyse = tk.Button(ruban_frame, text="Analyse", relief="raised",font=("Arial", 12, "bold"),command=dashboard, width=14, height=1,bg="#50808E")
-#.................
+# .........................................................................
 rows_cols_label = tk.Label(fen, text="", width=20,bg="#d2e3ee")
 frame_heatmap = ttk.Frame(fen)
 frame_correlation = ttk.Frame(fen)
@@ -813,7 +813,7 @@ frame_correlation = ttk.Frame(fen)
 text_correlation = scrolledtext.ScrolledText(frame_correlation, width=40, height=20)
 
 
-#.....................Icones...................
+# Icones ..................................................................
   
 exit_image = Image.open("exit.png")
 used_exit = ImageTk.PhotoImage(exit_image)
